@@ -25,7 +25,7 @@ class Events(commands.Cog):
         msg = message.content.lower()
 
         if 'thanks' in msg or 'thank you' in msg:
-            await _reply(message, "You're welcome!")
+            await self._reply(message, "You're welcome!")
 
     async def _reply(self, message, reply):
         await message.channel.send(reply, tts=True)
