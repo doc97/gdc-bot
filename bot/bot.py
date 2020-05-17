@@ -2,7 +2,11 @@ import utils.environment as env
 from discord.ext import commands
 
 
-extensions = ['cogs.events', 'cogs.commands']
+extensions = [
+    'cogs.git',
+    'cogs.events',
+    'cogs.commands'
+]
 bot = commands.Bot(command_prefix='!',
                    description='Helsinki GameDev Club Discord Bot')
 
