@@ -142,9 +142,9 @@ class Git(commands.Cog):
                 
                 ('-v, --verbose', 'Pass --verbose to git-fetch and git-merge.'),
                 
-                ('-r, --rebase[=false|true|preserve|interactive]', 'rebase the current branch on top of the upstream branch after fetching. If there is a remote-tracking branch corresponding to the upstream branch and the upstream branch was rebased since last fetched, the rebase uses that information to avoid rebasing non-local changes.'),
+                ('-r, --rebase[=false|true|preserve|interactive]', 'rebase the current branch on top of the upstream branch after fetching. If there is a remote-tracking branch corresponding to the upstream branch and the upstream branch was rebased since last fetched, the rebase uses that information to avoid rebasing non-local changes. First value is default'),
                 
-                ('--[no-]recurse-submodules[=yes|on-demand|no]', 'This option controls if new commits of all populated submodules should be fetched and updated')
+                ('--[no-]recurse-submodules[=yes|on-demand|no]', 'This option controls if new commits of all populated submodules should be fetched and updated. First value is default')
             ],
             short_desc='Incorporates changes from a remote repository into the current branch.',
             long_desc=(
