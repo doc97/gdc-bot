@@ -6,7 +6,7 @@ class TestManMessage():
 
     @pytest.mark.parametrize('text, result', [
         ('a'*72, 'a'*72),
-        ('a'*72 + ' b', 'a'*72 + '\n b'),
+        ('a'*72 + ' b', 'a'*72 + '\nb'),
         ('a'*71 + ' b', 'a'*71 + ' \nb'),
     ])
     def test_wrap_no_indent(self, text, result):
@@ -14,7 +14,7 @@ class TestManMessage():
         assert msg._wrap(text, line_len=72) == result
 
     @pytest.mark.parametrize('text, result, indent', [
-        ('a'*72 + ' b', 'a'*72 + '\n    b', 3),
+        ('a'*72 + ' b', 'a'*72 + '\n   b', 3),
         ('a'*71 + ' b', 'a'*71 + ' \n    b', 4),
     ])
     def test_wrap_indent_wrapped(self, text, result, indent):

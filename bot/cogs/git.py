@@ -2,13 +2,14 @@ from discord.ext import commands
 
 
 class ManMessage:
-    def __init__(self, name, synopsis, options=[], short_desc='', long_desc=[], examples=[]):
+    def __init__(self, name, synopsis, options=[], short_desc='', long_desc=[], examples=[], line_len=72):
         self.name = name
         self.synopsis = synopsis
         self.options = options
         self.short_desc = short_desc
         self.long_desc = long_desc
         self.examples = examples
+        self.line_len = line_len
 
     def _wrap(self, text, line_len=72, indent=0, indent_first_line=False):
         lines = []
@@ -23,7 +24,7 @@ class ManMessage:
         for i, c in enumerate(text):
             if word_start == -1 and c.isalpha():
                 word_start = i
-            if not c.isalpha():
+            if c.isspace():
                 word_start = -1
 
             if column >= line_limit or c == '\n':
@@ -31,7 +32,9 @@ class ManMessage:
                     lines.append(text[line_start:i])
                     line_start = i
                     column = 0
-                    if c == '\n':
+
+                    # skip one character forward
+                    if c == '\n' or c == ' ':
                         line_start = i+1
                 else:
                     lines.append(text[line_start:word_start])
@@ -42,20 +45,25 @@ class ManMessage:
                 line_limit = line_len - indent
             else:
                 column += 1
+
         if line_start < len(text):
             lines.append(text[line_start:len(text)])
 
-        if indent_first_line:
-            lines[0] = ' ' * indent + lines[0]
+        return self._indent(lines, indent, indent_first_line)
+
+    def _indent(self, lines, indent=4, indent_first_line=True):
         prefix = '\n' + ' ' * indent
-        return prefix.join(lines)
+        result = prefix.join(lines)
+        if indent_first_line:
+            result = ' ' * indent + result
+        return result
 
     def _short_desc(self):
         return '' if self.short_desc == '' else f'- {self.short_desc}'
 
     def _synopsis(self):
         indent = 4 + len(self.name) + 1
-        return self._wrap(self.synopsis, 80, indent)
+        return self._wrap(self.synopsis, self.line_len, indent)
 
     def _options(self):
         if len(self.options) == 0:
@@ -64,8 +72,11 @@ class ManMessage:
         lines = []
         for opt in self.options:
             lines.append(opt[0])
-            lines.append(self._wrap(opt[1], 80, 4, True))
-        return self._wrap('\n'.join(lines), 80, 4)
+            wrapped_lines = self._wrap(
+                opt[1], self.line_len - 4, 4, True).split('\n')
+            for line in wrapped_lines:
+                lines.append(line)
+        return self._indent(lines, 4, False)
 
     def _examples(self):
         if len(self.examples) == 0:
@@ -75,7 +86,7 @@ class ManMessage:
         for i, example in enumerate(self.examples):
             lines.append(f'{i+1}. {example}')
             lines.append('')
-        return self._wrap('\n'.join(lines), 80, 4)
+        return self._wrap('\n'.join(lines), self.line_len, 4)
 
     def __str__(self):
         return f'''```
@@ -88,7 +99,7 @@ SYNOPSIS
     {self._synopsis()}
 
 DESCRIPTION
-    {self._wrap(self.long_desc, 80-4, 4)}
+    {self._wrap(self.long_desc, self.line_len, 4)}
 
 OPTIONS
     {self._options()}
@@ -131,7 +142,7 @@ class Git(commands.Cog):
             )
         )
         await ctx.send(msg)
-    
+
     @git.command(help='Prints info on the git pull command')
     async def pull(self, ctx):
         msg = ManMessage(
@@ -139,22 +150,20 @@ class Git(commands.Cog):
             synopsis='git pull [options] [<repository> [<refspec>...]]',
             options=[
                 ('-q, --quiet', 'Only print error and warning messages.'),
-                ('-r, --rebase', ('rebases local branch so that conflicts can be avoided that were caused'
-                '\n' 
-                'by changes in the remote branch.')),
-                ('<repository>' , 'should be the name of a remote repository.'),
+                ('-r, --rebase', ('rebases local branch so that conflicts can be avoided that were '
+                                  'caused by changes in the remote branch.')),
+                ('<repository>', 'should be the name of a remote repository.'),
                 ('<refspec>', ('can name an arbitrary remote ref (for example, the name of a tag) '
-                '\n' 
-                'or even a collection of refs with corresponding remote-tracking branches.'))
+                               'or even a collection of refs with corresponding remote-tracking '
+                               'branches.'))
             ],
             short_desc='pulls commits from remote to local branch.',
             long_desc=(
-                'pulls changes/commits from remote to local branch.\n' 
+                'pulls changes/commits from remote to local branch.\n'
                 '\'git pull\' is a combination of \'git fetch\' and \'git merge\'.'
             )
         )
         await ctx.send(msg)
-                
 
     @git.command(help='Prints info on the git clone command')
     async def clone(self, ctx):
