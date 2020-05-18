@@ -135,7 +135,7 @@ class Git(commands.Cog):
     @git.command(help='Prints info on the git pull command')
     async def pull(self, ctx):
         msg = ManMessage(
-            name='git-pull'
+            name='git-pull',
             synopsis='git pull [options] [<repository> [<refspec>...]]',
             options=[
                 ('-q, --quiet', 'This is passed to both underlying git-fetch to squelch reporting of during transfer, and underlying git-merge to squelch output during merging.'),
