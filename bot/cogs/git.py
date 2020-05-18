@@ -131,6 +131,30 @@ class Git(commands.Cog):
             )
         )
         await ctx.send(msg)
+    
+    @git.command(help='Prints info on the git pull command')
+    async def pull(self, ctx):
+        msg = ManMessage(
+            name='git-pull',
+            synopsis='git pull [options] [<repository> [<refspec>...]]',
+            options=[
+                ('-q, --quiet', 'Only print error and warning messages.'),
+                ('-r, --rebase', ('rebases local branch so that conflicts can be avoided that were caused'
+                '\n' 
+                'by changes in the remote branch.')),
+                ('<repository>' , 'should be the name of a remote repository.'),
+                ('<refspec>', ('can name an arbitrary remote ref (for example, the name of a tag) '
+                '\n' 
+                'or even a collection of refs with corresponding remote-tracking branches.'))
+            ],
+            short_desc='pulls commits from remote to local branch.',
+            long_desc=(
+                'pulls changes/commits from remote to local branch.\n' 
+                '\'git pull\' is a combination of \'git fetch\' and \'git merge\'.'
+            )
+        )
+        await ctx.send(msg)
+                
 
     @git.command(help='Prints info on the git clone command')
     async def clone(self, ctx):

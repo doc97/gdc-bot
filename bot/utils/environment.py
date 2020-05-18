@@ -1,6 +1,7 @@
 import os
 import dotenv
 
+
 dotenv.load_dotenv()
 
 def get_discord_token():
