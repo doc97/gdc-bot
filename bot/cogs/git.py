@@ -138,19 +138,19 @@ class Git(commands.Cog):
             name='git-pull',
             synopsis='git pull [options] [<repository> [<refspec>...]]',
             options=[
-                ('-q, --quiet', 'This is passed to both underlying git-fetch to squelch reporting of during transfer, and underlying git-merge to squelch output during merging.'),
-                
-                ('-v, --verbose', 'Pass --verbose to git-fetch and git-merge.'),
-                
-                ('-r, --rebase[=false|true|preserve|interactive]', 'rebase the current branch on top of the upstream branch after fetching. If there is a remote-tracking branch corresponding to the upstream branch and the upstream branch was rebased since last fetched, the rebase uses that information to avoid rebasing non-local changes. First value is default'),
-                
-                ('--[no-]recurse-submodules[=yes|on-demand|no]', 'This option controls if new commits of all populated submodules should be fetched and updated. First value is default')
+                ('-q, --quiet', 'Only print error and warning messages.'),
+                ('-r, --rebase', ('rebases local branch so that conflicts can be avoided that were caused'
+                '\n' 
+                'by changes in the remote branch.')),
+                ('<repository>' , 'should be the name of a remote repository.'),
+                ('<refspec>', ('can name an arbitrary remote ref (for example, the name of a tag) '
+                '\n' 
+                'or even a collection of refs with corresponding remote-tracking branches.'))
             ],
-            short_desc='Incorporates changes from a remote repository into the current branch.',
+            short_desc='pulls commits from remote to local branch.',
             long_desc=(
-                'Incorporates changes from a remote repository into the current branch.In its default mode, git pull is shorthand for git fetch followed by git merge FETCH_HEAD.'
-                '\n'
-                'More precisely, \'git pull\' runs git fetch with the given parameters and calls git merge to merge the retrieved branch heads into the current branch. With --rebase, it runs git rebase instead of git merge.'
+                'pulls changes/commits from remote to local branch.\n' 
+                '\'git pull\' is a combination of \'git fetch\' and \'git merge\'.'
             )
         )
         await ctx.send(msg)
