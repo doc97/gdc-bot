@@ -136,9 +136,14 @@ class Git(commands.Cog):
     async def pull(self, ctx):
         msg = ManMessage(
             name='git-pull'
-            synopsis='git pull git pull [options] [<repository> [<refspec>...]]',
+            synopsis='git pull [options] [<repository> [<refspec>...]]',
             options=[
-                ('-q, --quiet'),('-v, --verbose'),
+                ('-q, --quiet', 'This is passed to both underlying git-fetch to squelch reporting of during transfer, and underlying git-merge to squelch output during merging.'),
+                
+                ('-v, --verbose', 'Pass --verbose to git-fetch and git-merge.'),
+                
+                ('-r, --rebase[=false|true|preserve|interactive]', 'rebase the current branch on top of the upstream branch after fetching. If there is a remote-tracking branch corresponding to the upstream branch and the upstream branch was rebased since last fetched, the rebase uses that information to avoid rebasing non-local changes.'),
+                
                 ('--[no-]recurse-submodules[=yes|on-demand|no]', 'This option controls if new commits of all populated submodules should be fetched and updated')
             ],
             short_desc='Incorporates changes from a remote repository into the current branch.',
