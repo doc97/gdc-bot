@@ -131,6 +131,24 @@ class Git(commands.Cog):
             )
         )
         await ctx.send(msg)
+    @git.command(help'Prints info on the git pull command')
+    async def pull(self, ctx):
+        msg = ManMessage(
+            name='git-pull'
+            synopsis='git pull git pull [options] [<repository> [<refspec>...]]',
+            options=[
+                ('-q, --quiet'),('-v, --verbose'),
+                ('--[no-]recurse-submodules[=yes|on-demand|no]', 'This option controls if new commits of all populated submodules should be fetched and updated')
+            ],
+            short_desc='Incorporates changes from a remote repository into the current branch.',
+            long_desc=(
+                'Incorporates changes from a remote repository into the current branch.In its default mode, git pull is shorthand for git fetch followed by git merge FETCH_HEAD.'
+                '\n'
+                'More precisely, \'git pull\' runs git fetch with the given parameters and calls git merge to merge the retrieved branch heads into the current branch. With --rebase, it runs git rebase instead of git merge.'
+            )
+        )
+        await ctx.send(msg)
+                
 
     @git.command(help='Prints info on the git clone command')
     async def clone(self, ctx):
