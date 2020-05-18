@@ -42,7 +42,7 @@ class ManMessage:
                 line_limit = line_len - indent
             else:
                 column += 1
-        if column > 0:
+        if line_start < len(text):
             lines.append(text[line_start:len(text)])
 
         if indent_first_line:
