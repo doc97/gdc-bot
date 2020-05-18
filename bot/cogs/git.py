@@ -131,7 +131,8 @@ class Git(commands.Cog):
             )
         )
         await ctx.send(msg)
-    @git.command(help'Prints info on the git pull command')
+    
+    @git.command(help='Prints info on the git pull command')
     async def pull(self, ctx):
         msg = ManMessage(
             name='git-pull'
