@@ -143,24 +143,27 @@ class Git(commands.Cog):
         )
         await ctx.send(msg)
 
-    @git.command(help='Prints info on the git pull command')
+    @git.command(help='Pulls commits from a remote to a local branch')
     async def pull(self, ctx):
         msg = ManMessage(
             name='git-pull',
             synopsis='git pull [options] [<repository> [<refspec>...]]',
             options=[
                 ('-q, --quiet', 'Only print error and warning messages.'),
-                ('-r, --rebase', ('rebases local branch so that conflicts can be avoided that were '
-                                  'caused by changes in the remote branch.')),
-                ('<repository>', 'should be the name of a remote repository.'),
-                ('<refspec>', ('can name an arbitrary remote ref (for example, the name of a tag) '
+                ('-r, --rebase', ('Rebase instead of merge the remote branch into the local branch '
+                                  'so that conflicts can be avoided that were caused by changes in '
+                                  'the remote branch leading to a merge commit.')),
+                ('<repository>', ('Should be the name of a remote repository. The default value is '
+                                  '\'origin\'.')),
+                ('<refspec>', ('Can name an arbitrary remote ref (the name of a tag or a branch) '
                                'or even a collection of refs with corresponding remote-tracking '
-                               'branches.'))
+                               'branches. The default value is the name of the current local branch.'))
             ],
-            short_desc='pulls commits from remote to local branch.',
+            short_desc='Pulls commits from remote to local branch.',
             long_desc=(
-                'pulls changes/commits from remote to local branch.\n'
-                '\'git pull\' is a combination of \'git fetch\' and \'git merge\'.'
+                'Pulls changes/commits from a remote and incorporates them into the local branch. '
+                '\'git pull\' performs a \'git fetch\' and then a \'git merge\'. If --rebase is used, '
+                'it performs a \'git rebase\' instead of the default \'git merge\'.'
             ),
             examples=['Pull with rebase:\ngit pull --rebase',
                       'Pull branch \'dev\' from a remote called \'gitserver\':\ngit pull gitserver dev']
