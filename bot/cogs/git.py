@@ -35,7 +35,7 @@ class ManMessage:
 
                     # skip one character forward
                     if c == '\n' or c == ' ':
-                        line_start = i+1
+                        line_start += 1
                 else:
                     lines.append(text[line_start:word_start])
                     line_start = word_start
@@ -161,7 +161,9 @@ class Git(commands.Cog):
             long_desc=(
                 'pulls changes/commits from remote to local branch.\n'
                 '\'git pull\' is a combination of \'git fetch\' and \'git merge\'.'
-            )
+            ),
+            examples=['Pull with rebase:\ngit pull --rebase',
+                      'Pull branch \'dev\' from a remote called \'gitserver\':\ngit pull gitserver dev']
         )
         await ctx.send(msg)
 
