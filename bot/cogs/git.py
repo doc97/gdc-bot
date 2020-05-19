@@ -184,7 +184,7 @@ class Git(commands.Cog):
     async def pull(self, ctx):
         msg = ManMessage(
             name='git-pull',
-            synopsis='git pull [options] [<repository> [<refspec>...]]',
+            synopsis='git pull [<options>] [<repository> [<refspec>...]]',
             options=[
                 ('-q, --quiet', 'Only print error and warning messages.'),
                 ('-r, --rebase', ('Rebase instead of merge the remote branch into the local branch '
@@ -196,7 +196,7 @@ class Git(commands.Cog):
                                'or even a collection of refs with corresponding remote-tracking '
                                'branches. The default value is the name of the current local branch.'))
             ],
-            short_desc='Pulls commits from remote to local branch.',
+            short_desc='Pulls commits from remote to local branch',
             long_desc=(
                 'Pulls changes/commits from a remote and incorporates them into the local branch. '
                 '\'git pull\' performs a \'git fetch\' and then a \'git merge\'. If --rebase is used, '
