@@ -22,10 +22,10 @@ class ManMessage:
             line_limit = line_len - indent
 
         for i, c in enumerate(text):
-            if word_start == -1 and not c.isspace():
-                word_start = i
             if c.isspace():
                 word_start = -1
+            elif word_start == -1:
+                word_start = i
 
             if column >= line_limit or c == '\n':
                 if word_start == -1:  # if c == '\n', then word_start == -1
@@ -118,9 +118,10 @@ class Git(commands.Cog):
     @commands.group(help='Presents information about various git commands')
     async def git(self, ctx):
         if ctx.subcommand_passed is None:
-            await ctx.send('Please specify a sub-command, see a list of them with `!help git`.')
+            await ctx.send_help(ctx.command)
         elif ctx.invoked_subcommand is None:
             await ctx.send('Invalid git command.')
+            await ctx.send_help(ctx.command)
 
     @git.command(help='Create an empty Git repository')
     async def init(self, ctx):
