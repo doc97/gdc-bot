@@ -143,6 +143,43 @@ class Git(commands.Cog):
         )
         await ctx.send(msg)
 
+    @git.command(help='Get or set repository or global configuration')
+    async def config(self, ctx):
+        msg = ManMessage(
+            name='git-config',
+            synopsis='git config [<options>] <name> [<value>]',
+            options=[
+                ('--global', ('For writing options: write to the global `~/.gitconfig` file rather '
+                              'than to the repository `.git/config` file.\n'
+                              '\n'
+                              'For reading options: read from global the `~/.gitconfig` file rather '
+                              'than from the repository `.git/config` file.')),
+                ('--local', ('This is the default behaviour.\n'
+                             '\n'
+                             'For writing options: write to the repository `.git/config` file rather '
+                             'than to the global `~/.gitconfig` file.\n'
+                             '\n'
+                             'For reading options: read from the repository `~/.gitconfig` file rather '
+                             'than from the global `.git/config` file.')),
+                ('-l, --list', 'List all variables and their values in the config file.'),
+                ('<name>', 'The name of the configuration variable, e.g. \'user.name\'.'),
+                ('<value>', 'Specifying this value sets the configuration variable to this value.')
+            ],
+            short_desc='Get or set repository or global configuration',
+            long_desc=('You can query or set configuration options with this command. You will need to '
+                       'at least set up \'user.name\' and \'user.email\'. Note how the variable '
+                       'consists of a category and a name in the form of <category>.<name>. All '
+                       'variables follow this scheme.'),
+            examples=[('Configure global name and email:\n'
+                       'git config --global user.name "John Smith"\n'
+                       'git config --global user.email "john.smith@example.com"'),
+                      ('List repository specific text editor:\n'
+                       'git config core.editor'),
+                      ('List all configuration variables:\n'
+                       'git config -l')]
+        )
+        await ctx.send(msg)
+
     @git.command(help='Pulls commits from a remote to a local branch')
     async def pull(self, ctx):
         msg = ManMessage(
