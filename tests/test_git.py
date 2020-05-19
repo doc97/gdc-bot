@@ -8,6 +8,7 @@ class TestManMessage():
         ('a'*72, 'a'*72),
         ('a'*72 + ' b', 'a'*72 + '\nb'),
         ('a'*71 + ' b', 'a'*71 + ' \nb'),
+        ('a'*70 + ' <bar>', 'a'*70 + ' \n<bar>'),
     ])
     def test_wrap_no_indent(self, text, result):
         msg = git.ManMessage(name='test', synopsis='test command')

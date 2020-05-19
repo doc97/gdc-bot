@@ -22,7 +22,7 @@ class ManMessage:
             line_limit = line_len - indent
 
         for i, c in enumerate(text):
-            if word_start == -1 and c.isalpha():
+            if word_start == -1 and not c.isspace():
                 word_start = i
             if c.isspace():
                 word_start = -1
