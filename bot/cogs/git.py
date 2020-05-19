@@ -122,7 +122,7 @@ class Git(commands.Cog):
         elif ctx.invoked_subcommand is None:
             await ctx.send('Invalid git command.')
 
-    @git.command(help='Prints info on the git init command')
+    @git.command(help='Create an empty Git repository')
     async def init(self, ctx):
         msg = ManMessage(
             name='git-init',
@@ -170,7 +170,7 @@ class Git(commands.Cog):
         )
         await ctx.send(msg)
 
-    @git.command(help='Prints info on the git clone command')
+    @git.command(help='Clones a repository into a new directory')
     async def clone(self, ctx):
         msg = ManMessage(
             name='git-clone',
