@@ -4,6 +4,7 @@ from discord.ext import commands
 
 extensions = [
     'cogs.git',
+    'cogs.break',
     'cogs.events',
     'cogs.commands'
 ]
