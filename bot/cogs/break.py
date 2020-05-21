@@ -1,5 +1,6 @@
 from discord.ext import commands
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 import asyncio
 import datetime
 
@@ -7,7 +8,7 @@ import datetime
 class Break(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.scheduler = AsyncIOScheduler()
+        self.scheduler= AsyncIOScheduler({'apscheduler.timezone': 'Europe/Helsinki'}) 
         self.scheduler.start()
         self.setup_in_progress = False
 
@@ -107,7 +108,7 @@ class Break(commands.Cog):
             return
 
         try:
-            job = self.scheduler.add_job(send_message, 'cron', args=[ctx, msg], name=msg,
+            self.scheduler.add_job(send_message, 'cron', args=[ctx, msg], name=msg,
                                          id=job_id, replace_existing=True,
                                          day_of_week=weekday, hour=hour, minute=minute)
             await ctx.send('Break setup successfully.')
