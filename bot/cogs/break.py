@@ -1,6 +1,5 @@
 from discord.ext import commands
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.schedulers.background import BackgroundScheduler
 import asyncio
 import datetime
 
