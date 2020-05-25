@@ -166,6 +166,10 @@ class Git(commands.Cog):
             await ctx.send('Invalid git command.')
             await ctx.send_help(ctx.command)
 
+    @git.command(help="Shows this help message")
+    async def help(self, ctx):
+        await ctx.send_help(ctx.command.parent)
+
     @git.command(help='Create an empty Git repository')
     async def init(self, ctx):
         await ctx.send(self.messages['git-init'])
