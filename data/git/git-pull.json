@@ -1,0 +1,36 @@
+{
+    "name": "git-pull",
+    "synopsis": "git pull [<options>] [<repository> [<refspec>...]]",
+    "options": {
+        "-q, --quiet": "Only print error and warning messages.",
+        "-r, --rebase": [
+            "Rebase instead of merge the remote branch into the local branch ",
+            "so that conflicts can be avoided that were caused by changes in ",
+            "the remote branch leading to a merge commit."
+        ],
+        "<repository>": [
+            "Should be the name of a remote repository. The default value is ",
+            "'origin'."
+        ],
+        "<refspec>": [
+            "Can name an arbitrary remote ref (the name of a tag or a branch) ",
+            "or even a collection of refs with corresponding remote-tracking ",
+            "branches. The default value is the name of the current local ",
+            "branch."
+        ]
+    },
+    "short_desc": "Pulls commits from a remote to a local branch",
+    "long_desc": [
+        "Pulls changes/commits from a remote and incorporates them into the ",
+        "local branch. 'git pull' performs a 'git fetch' and then a ",
+        "'git merge'. If --rebase is used, it performs a 'git rebase' instead ",
+        "of the default 'git merge'."
+    ],
+    "examples": {
+        "1": "1. Pull with rebase:\ngit pull --rebase",
+        "2": [
+            "2. Pull branch 'dev' from a remote called 'gitserver':\n",
+            "git pull gitserver dev"
+        ]
+    }
+}

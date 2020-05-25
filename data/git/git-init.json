@@ -1,0 +1,21 @@
+{
+    "name": "git-init",
+    "synopsis": "git init [-q | --quiet] [<directory>]",
+    "options": {
+        "-q, --quiet": "Only print error and warning messages.",
+        "<directory>": [
+            "If provided, the command is run inside it. If this directory ",
+            "does not exist it will be created."
+        ]
+    },
+    "short_desc": "Create an empty Git repository",
+    "long_desc": [
+        "This command creates an empty Git repository - basically a .git ",
+        "directory with subdirectories for objects, refs/heads, refs/tags, ",
+        "and template files.\n",
+        "\n",
+        "Running 'git init' in an existing repository is safe. It will not ",
+        "overwrite things that are already there."
+    ],
+    "examples": {}
+}

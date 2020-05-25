@@ -11,7 +11,7 @@ class TestManMessage():
         ('a'*70 + ' <bar>', 'a'*70 + ' \n<bar>'),
     ])
     def test_wrap_no_indent(self, text, result):
-        msg = git.ManMessage(name='test', synopsis='test command')
+        msg = git.ManMessage()
         assert msg._wrap(text, line_len=72) == result
 
     @pytest.mark.parametrize('text, result, indent', [
@@ -19,7 +19,7 @@ class TestManMessage():
         ('a'*71 + ' b', 'a'*71 + ' \n    b', 4),
     ])
     def test_wrap_indent_wrapped(self, text, result, indent):
-        msg = git.ManMessage(name='test', synopsis='test command')
+        msg = git.ManMessage()
         assert msg._wrap(text=text, line_len=72, indent=indent) == result
 
     @pytest.mark.parametrize('text, result', [
@@ -27,6 +27,6 @@ class TestManMessage():
         ('a'*67 + ' b', '    '+'a'*67 + ' \n    b'),
     ])
     def test_wrap_indent_all(self, text, result):
-        msg = git.ManMessage(name='test', synopsis='test command')
+        msg = git.ManMessage()
         assert msg._wrap(text=text, line_len=72, indent=4,
                          indent_first_line=True) == result

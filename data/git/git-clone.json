@@ -1,0 +1,30 @@
+{
+    "name": "git-clone",
+    "synopsis": "git clone [<options>] <repository> [<directory>]",
+    "options": {
+        "-q, --quiet": "Only print error and warning messages.",
+        "-v, --verbose": "Print more information.",
+        "<repository>": [
+            "The (remote) repository to clone from, usually in the form of a ",
+            "URL e.g. 'https://github.com/<user>/<repo>'."
+        ],
+        "<directory>": [
+            "The name of a new directory to clone into. By default it is the ",
+            "remote repository name"
+        ]
+    },
+    "short_desc": "Clones a repository into a new directory",
+    "long_desc": [
+        "Clones a repository. Tracking of remote branches are set up and the ",
+        "command also checks out an initial branch, often the master branch ",
+        "(see 'git checkout').\n",
+        "\n",
+        "After the clone, a plain 'git fetch' is performed to update all ",
+        "tracked branches after which a plain 'git pull' will merge the ",
+        "remote master branch into the local master branch."
+    ],
+    "examples": {
+        "1": "1. Clone with HTTPS:\ngit clone https://github.com/doc97/gdc-bot",
+        "2": "2. Clone with SSH:\ngit clone git@github.com:doc97/gdc-bot"
+    }
+}
