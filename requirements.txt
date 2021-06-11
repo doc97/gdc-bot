@@ -25,5 +25,5 @@ pytz==2020.1
 six==1.14.0
 tzlocal==2.1
 wcwidth==0.1.9
-websockets==8.1
+websockets==9.1
 yarl==1.4.2
